@@ -1,0 +1,15 @@
+<button>click me</button>
+<script>
+/*   var count = 0;
+  var button = document.querySelector('button');
+  button.addEventListener('click', () => {
+    count = count + 1;
+    console.log('You clicked ', count, ' times');
+  }); */
+  var button = document.querySelector('button');
+  Rx.Observable.fromEvent(button, 'click')
+  .scan(count => count + 1, 9)
+  .subscribe(count => {
+    console.log('You clicked ', count, 'times');
+  });
+</script>
