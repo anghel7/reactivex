@@ -1,0 +1,21 @@
+<button>Click me</button>
+<script>
+ /*  var count = 0;
+  var rate = 1000;
+  var lasClick = Date.now() - rate;
+  var button = document.querySelector('button');
+  button.addEventListener('click', (event) => {
+    if (Date.now() - lasClick >= rate) {
+      count += event.clientX;
+      console.log(count);
+      lasClick = Date.now();
+    }
+  }); */
+
+  var button = document.querySelector('button');
+  Rx.Observable.fromEvent(button, 'click')
+    .throttleTime(1000)
+    .map(event => event.clientX)
+    .scan((count, clientX) => count + clientX, 0)
+    .subscribe(count => console.log(count));
+</script>
