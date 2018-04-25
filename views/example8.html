@@ -1,0 +1,31 @@
+<script>
+  /*  function foo() {
+        console.log('Hello');
+        return 42;
+        return 100;//Not works
+      } */
+
+  /*  //sincrono
+      var foo = Rx.Observable.create(function (observer) {
+      console.log('hello');
+      observer.next(42);
+      observer.next(100);
+      observer.next(200);
+    }); */
+  //asincrono
+  var foo = Rx.Observable.create(function (observer) {
+    console.log('hello');
+    observer.next(42);
+    observer.next(100);
+    observer.next(200);
+    setTimeout(function () {
+      observer.next(300);
+    }, 2000);
+  });
+
+  console.log('before');
+  foo.subscribe(function (x) {
+    console.log(x);
+  });
+  console.log('after');
+</script>
