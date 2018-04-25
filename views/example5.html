@@ -1,0 +1,18 @@
+<script>
+  var observable = Rx.Observable.create(function (observer) {
+    observer.next(1);
+    observer.next(2);
+    observer.next(3);
+    setTimeout(() => {
+      observer.next(4);
+      observer.complete();
+    }, 1000);
+  });
+  console.log('Just before subscribe');
+  observable.subscribe({
+    next: x => console.log('Got value ' + x),
+    error: err => console.error('Something wrong ocurred: ' + err),
+    complete: () => console.log('Done')
+  });
+  console.log('Just after subscribe');
+</script>
