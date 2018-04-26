@@ -1,0 +1,20 @@
+<button>click me</button>
+<script>
+  var observable = Rx.Observable.create(function subscribe(observer) {
+    var intervalID = setInterval(() => {
+      observer.next('hi');
+    }, 1000);
+    return function unsubscribe() {
+      clearInterval(intervalID);
+    }
+  });
+  var unsubscribe = observable.subscribe({
+    next: (x) => console.log(x)
+  });
+
+  var button = document.querySelector('button');
+  Rx.Observable.fromEvent(button, 'click')
+    .subscribe(() => {
+      unsubscribe();
+    });
+</script>
