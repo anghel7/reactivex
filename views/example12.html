@@ -1,0 +1,9 @@
+<script>
+  var observable = Rx.Observable.from([12, 20, 30]);
+  var observer = {
+    next: x => console.log('Observer got a next value: ' + x),
+    error: err => console.log('Observer got an error: ' + err),
+    complete: () => console.log('Observer got a complete notification')
+  };
+  var subscription = observable.subscribe(observer);
+</script>
