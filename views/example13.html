@@ -1,0 +1,18 @@
+<script>
+  var observable1 = Rx.Observable.interval(400);
+  var observable2 = Rx.Observable.interval(300);
+
+  var observer1 = {
+    next: x => console.log('First: ' + x)
+  };
+  var observer2 = {
+    next: x => console.log('Second: ' + x)
+  };
+  var subscription = observable1.subscribe(observer1);
+  var childSubscription = observable2.subscribe(observer2);
+  //Adding a subscription into another
+  subscription.add(childSubscription);
+  setTimeout(() => {
+    subscription.unsubscribe();
+  }, 3000);
+</script>
