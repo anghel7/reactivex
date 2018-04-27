@@ -1,0 +1,34 @@
+<script>
+  var intervalObservable = Rx.Observable.interval(500);
+  var subjectObservable = new Rx.Subject();
+  var multicastObservable = intervalObservable.multicast(subjectObservable);
+  var subscription1, subscription2, subscriptionConnect;
+
+  var observerA = {
+    next: (x) => {
+      console.log('ObserverA: ' + x);
+    }
+  };
+  var observerB = {
+    next: (x) => {
+      console.log('ObserverB: ' + x);
+    }
+  };
+
+
+  subscription1 = multicastObservable.subscribe(observerA);
+  subscriptionConnect = multicastObservable.connect();
+
+  setTimeout(() => {
+    subscription2 = multicastObservable.subscribe(observerB);
+  }, 600);
+
+  setTimeout(() => {
+    subscription1.unsubscribe();
+  }, 1200);
+
+  setTimeout(() => {
+    subscription2.unsubscribe();
+    subscriptionConnect.unsubscribe();
+  }, 2000);
+</script>
