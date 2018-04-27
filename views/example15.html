@@ -1,0 +1,21 @@
+<script>
+  var subjectObservable = new Rx.Subject();
+
+  var observerA = {
+    next: (x) => {
+      console.log('ObserverA: ' + x)
+    }
+  };
+
+  var observerB = {
+    next: (x) => {
+      console.log('ObserverB: ' + x)
+    }
+  };
+
+  subjectObservable.subscribe(observerA);
+  subjectObservable.subscribe(observerB);
+
+  var fromObservable = Rx.Observable.from([1, 5, 3]);
+  fromObservable.subscribe(subjectObservable);
+</script>
