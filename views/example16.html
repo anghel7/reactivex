@@ -1,0 +1,22 @@
+<script>
+  var fromObservable = Rx.Observable.from([1, 2, 3]);
+  var subjectObservable = new Rx.Subject();
+  var multicastObservable = fromObservable.multicast(subjectObservable);
+
+  var observerA = {
+    next: (x) => {
+      console.log('ObserverA: ' + x)
+    }
+  };
+
+  var observerB = {
+    next: (x) => {
+      console.log('ObserverB: ' + x)
+    }
+  };
+
+  multicastObservable.subscribe(observerA);
+  multicastObservable.subscribe(observerB);
+
+  multicastObservable.connect();
+</script>
